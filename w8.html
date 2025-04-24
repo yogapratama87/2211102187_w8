@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerpen Interaktif - Bunga di Tengah Badai</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            padding-top: 20px;
+        }
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        h1 {
+            color: #6c5ce7;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        .paragraph {
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+        .paragraph.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .first-letter {
+            font-size: 2.5em;
+            float: left;
+            line-height: 0.8;
+            margin-right: 8px;
+            color: #6c5ce7;
+            font-weight: bold;
+        }
+        .btn-magic {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            transition: all 0.3s ease;
+            display: block;
+            margin: 40px auto 0;
+        }
+        .btn-magic:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.6);
+        }
+        .floating-bg {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(108, 92, 231, 0.1);
+            z-index: -1;
+        }
+        .bg-1 {
+            top: -50px;
+            left: -50px;
+            animation: float 8s ease-in-out infinite;
+        }
+        .bg-2 {
+            bottom: -80px;
+            right: -30px;
+            width: 300px;
+            height: 300px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #999;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="story-container">
+            <div class="floating-bg bg-1"></div>
+            <div class="floating-bg bg-2"></div>
+            
+            <h1 class="animate__animated animate__fadeInDown">BUNGA DI TENGAH BADAI</h1>
+            
+            <div class="paragraph" id="para1">
+                <span class="first-letter">D</span>i sebuah desa kecil yang terletak di kaki gunung, hiduplah seorang gadis bernama Lila. Setiap pagi, ia berjalan menyusuri jalan setapak menuju kebun bunga miliknya, tempat ia merawat berbagai jenis bunga dengan penuh kasih sayang. Suatu hari, ketika langit mulai gelap dan angin bertiup kencang, Lila menyadari bahwa badai besar akan datang. Dengan sigap, ia berlari ke kebunnya, berusaha menyelamatkan bunga-bunga kesayangannya sebelum hujan turun dengan deras.
+            </div>
+            
+            <div class="paragraph" id="para2">
+                <span class="first-letter">S</span>aat badai mengamuk, Lila melihat seekor burung kecil yang terluka terjatuh di antara bunga-bunganya. Tanpa pikir panjang, ia membawa burung itu ke dalam gubuk kecil di tengah kebun. Sementara di luar, angin menerjang dengan ganasnya, Lila dengan sabar merawat burung itu, membalut sayapnya yang patah dengan kain halus. Dalam kegelapan dan suara gemuruh petir, ada kehangatan yang tercipta antara gadis kecil dan makhluk yang ia selamatkan.
+            </div>
+            
+            <div class="paragraph" id="para3">
+                <span class="first-letter">K</span>eesokan harinya, ketika matahari muncul kembali setelah badai, Lila terkejut melihat pemandangan di kebunnya. Meskipun beberapa bunga telah rusak, ada sesuatu yang ajaib - di tengah-tengah kerusakan, tumbuh sebuah bunga baru dengan warna yang belum pernah ia lihat sebelumnya, berkilau seperti embun di bawah sinar matahari pagi. Burung kecil yang ia selamatkan berkicau lembut, seolah berterima kasih, sebelum terbang meninggalkannya. Lila tersenyum, menyadari bahwa di tengah setiap badai, selalu ada keindahan yang menunggu untuk ditemukan.
+            </div>
+            
+            <button class="btn btn-primary btn-magic" id="magicBtn">Temukan Pesan Cerita</button>
+        </div>
+        
+        <div class="footer">
+            © 2023 Cerpen Interaktif | Dibuat dengan ❤️ menggunakan Bootstrap & jQuery
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Animasi untuk paragraf saat scroll
+            function checkVisibility() {
+                $('.paragraph').each(function() {
+                    var paragraphTop = $(this).offset().top;
+                    var windowBottom = $(window).scrollTop() + $(window).height();
+                    
+                    if (paragraphTop < windowBottom - 100) {
+                        $(this).addClass('visible');
+                    }
+                });
+            }
+            
+            // Jalankan saat load dan scroll
+            checkVisibility();
+            $(window).scroll(function() {
+                checkVisibility();
+            });
+            
+            // Efek hover untuk judul
+            $('h1').hover(
+                function() {
+                    $(this).css('text-shadow', '2px 2px 8px rgba(108, 92, 231, 0.6)');
+                },
+                function() {
+                    $(this).css('text-shadow', 'none');
+                }
+            );
+            
+            // Animasi tombol
+            $('#magicBtn').hover(
+                function() {
+                    $(this).css('transform', 'scale(1.05)');
+                },
+                function() {
+                    $(this).css('transform', 'scale(1)');
+                }
+            );
+            
+            // Alert box saat tombol diklik
+            $('#magicBtn').click(function() {
+                Swal.fire({
+                    title: 'Pesan dari Cerita',
+                    html: '<div style="font-size:1.2em; color:#6c5ce7;"><i class="bi bi-flower1"></i> Di setiap kesulitan, selalu ada peluang untuk menemukan keindahan dan kebaikan. Seperti Lila dan bunganya, kita bisa menjadi cahaya di tengah badai kehidupan.</div>',
+                    icon: 'success',
+                    confirmButtonText: 'Mengerti',
+                    background: '#fff',
+                    backdrop: `
+                        rgba(108,92,231,0.4)
+                        url("https://media.giphy.com/media/3o7TKAZnIu4w31OqmA/giphy.gif")
+                        center top
+                        no-repeat
+                    `,
+                    confirmButtonColor: '#6c5ce7',
+                    customClass: {
+                        popup: 'animate__animated animate__zoomIn'
+                    }
+                });
+            });
+            
+            // Tambahkan efek ketik untuk paragraf pertama
+            var para1Text = $('#para1').text();
+            $('#para1').text('');
+            var i = 0;
+            var typingEffect = setInterval(function() {
+                if (i < para1Text.length) {
+                    $('#para1').append(para1Text.charAt(i));
+                    i++;
+                } else {
+                    clearInterval(typingEffect);
+                }
+            }, 30);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</body>
+</html>
